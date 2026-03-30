@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Convex Finance — cvxCRV, CVX Token, Boosted CRV Yields &amp; How It Works (2026)</title>
+  <meta name="description" content="Complete Convex Finance guide (2026): how Convex boosts Curve LP rewards, cvxCRV vs veCRV, CVX token staking, vlCVX vote locking, how to deposit on Convex, Curve wars, bribes, and a deep FAQ for liquidity providers and yield farmers.">
+  <meta name="author" content="Crypto Finance Experts">
+  <link rel="canonical" href="https://convex-finance-guide.example.com/">
+  <link rel="icon" type="image/jpeg" href="conv.jpg">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://convex-finance-guide.example.com/">
+  <meta property="og:title" content="Convex Finance — cvxCRV, CVX Token &amp; Boosted Curve Yields Guide (2026)">
+  <meta property="og:description" content="Practical Convex Finance guide: how Convex boosts CRV rewards, cvxCRV mechanics, CVX staking, vlCVX, Curve wars, bribes, and yield strategy.">
+  <meta property="og:image" content="cover.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convex Finance — CRV Boost &amp; CVX Token Guide (2026)">
+  <meta name="twitter:description" content="How Convex Finance maximises Curve LP yields, cvxCRV, CVX staking, vlCVX vote locking, and the Curve wars explained for 2026.">
+
+  <style>
+    :root {
+      --cx:   #FF5B00;
+      --cx2:  #E04E00;
+      --cx3:  #C24300;
+      --cxa:  #FF7A30;
+      --cxl:  #FFE4D6;
+
+      --ink:   #FFF8F5;
+      --sub:   #FFD4BC;
+      --muted: #94A3B8;
+      --dim:   #64748B;
+
+      --bg:    #0C0905;
+      --card:  rgba(255,255,255,.030);
+      --line:  rgba(255,255,255,.07);
+      --lx:    rgba(255,91,0,.13);
+
+      --ok:   #34D399;
+      --warn: #FBBF24;
+      --err:  #F87171;
+
+      --r:  12px;
+      --rl: 18px;
+      --gap: 1.2rem;
+      --sh: 0 8px 28px rgba(0,0,0,.55);
+      --shx: 0 4px 20px rgba(255,91,0,.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html { scroll-behavior: smooth }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 850px 500px at 0% 0%,    rgba(255,91,0,.11), transparent 55%),
+        radial-gradient(ellipse 650px 380px at 100% 10%, rgba(255,122,48,.06), transparent 50%),
+        radial-gradient(ellipse 550px 320px at 50% 98%,  rgba(194,67,0,.07),  transparent 55%);
+      color: var(--muted);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: var(--cxa); text-decoration: none }
+    a:hover { text-decoration: underline }
+    img { max-width: 100%; height: auto; display: block }
+    strong { color: #FFF0E8; font-weight: 600 }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.4rem }
+
+    h1,h2,h3,h4 { color: var(--ink); line-height: 1.25 }
+    h1 { font-size: clamp(2rem,5vw,3.1rem); font-weight: 800; letter-spacing: -.4px }
+    h2 { font-size: clamp(1.25rem,2.5vw,1.75rem); font-weight: 700; margin-top: 1.8rem; padding-top: .7rem; border-top: 1px solid var(--line) }
+    h3 { font-size: 1.08rem; font-weight: 700; color: var(--sub) }
+    p,li,td,th { font-size: 1rem; line-height: 1.75 }
+    .lead { font-size: 1.08rem; color: #E2D4CC }
+
+    /* HERO */
+    header.hero {
+      padding: clamp(2.5rem,6vw,5rem) 0 clamp(2rem,4vw,3.5rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-card {
+      background: rgba(255,91,0,.05);
+      border: 1px solid var(--lx);
+      border-radius: var(--rl);
+      padding: clamp(1.4rem,3.5vw,2.4rem);
+      box-shadow: var(--sh), var(--shx);
+    }
+    .brand-row { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem }
+    .brand-logo {
+      width: 54px; height: 54px; border-radius: 13px;
+      border: 1px solid rgba(255,91,0,.25);
+      background: rgba(255,91,0,.08);
+      padding: .3rem; object-fit: contain;
+      box-shadow: 0 4px 14px rgba(255,91,0,.18);
+      flex: 0 0 auto;
+    }
+    .brand-label { color: var(--dim); font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px }
+    .brand-sub   { color: var(--muted); font-size: .85rem }
+
+    /* CTA */
+    .cta-center { display: flex; justify-content: center; margin-top: 2rem }
+    .cta {
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: linear-gradient(135deg, #FF7A30 0%, #FF5B00 45%, #E04E00 80%, #C24300 100%);
+      color: #fff;
+      padding: 1.2rem 3rem;
+      border-radius: 16px;
+      font-weight: 900; font-size: 1.15rem; letter-spacing: .15px;
+      box-shadow:
+        0 0 0 1px rgba(255,91,0,.25),
+        0 0 24px rgba(255,91,0,.30),
+        0 8px 22px rgba(224,78,0,.28),
+        0 20px 48px rgba(194,67,0,.22);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: transform .18s, box-shadow .18s, filter .18s;
+    }
+    .cta:hover {
+      transform: translateY(-3px) scale(1.025); filter: brightness(1.07); color: #fff;
+      text-decoration: none;
+      box-shadow:
+        0 0 0 1px rgba(255,91,0,.40),
+        0 0 34px rgba(255,91,0,.42),
+        0 10px 28px rgba(224,78,0,.38),
+        0 26px 58px rgba(194,67,0,.30);
+    }
+    .cta-icon { font-size: 1.25rem }
+
+    /* NOTE */
+    .note {
+      border-left: 3px solid var(--cx);
+      padding: .8rem 1rem;
+      background: rgba(255,91,0,.07);
+      border-radius: 0 9px 9px 0;
+      color: var(--sub);
+      margin-top: 1rem;
+    }
+
+    /* STEPS */
+    section.step-guide {
+      padding: clamp(2rem,5vw,3.5rem) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,91,0,.025);
+    }
+    .steps { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--cx);
+      border-radius: var(--r);
+      padding: 1.25rem;
+      box-shadow: var(--sh);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .step:hover { transform: translateY(-3px); box-shadow: var(--sh), var(--shx) }
+    .step .icon {
+      width: 44px; height: 44px; border-radius: 9px;
+      display: inline-grid; place-items: center;
+      background: rgba(255,91,0,.10);
+      margin-bottom: .65rem;
+      font-weight: 800; font-size: .95rem; color: var(--cx);
+      border: 1px solid rgba(255,91,0,.20);
+    }
+
+    /* CARD */
+    main { padding-top: .5rem }
+    main .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      margin: 1.2rem 0;
+      box-shadow: var(--sh);
+    }
+    main .card > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* TOC */
+    .toc {
+      border: 1px solid var(--lx);
+      background: rgba(255,91,0,.05);
+      border-radius: var(--r);
+      padding: 1.1rem 1.3rem;
+    }
+    .toc strong { color: var(--ink) }
+    .toc ul { margin: .5rem 0 0; padding-left: 1.1rem }
+    .toc li { margin: .28rem 0; font-size: .96rem }
+    .toc a { font-weight: 600 }
+
+    /* GRID */
+    .grid-2 { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .callout-grid { display: grid; gap: var(--gap); grid-template-columns: 1fr; margin-top: .8rem }
+    .mini {
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 1rem;
+    }
+    .mini h3 { margin-bottom: .35rem }
+    .kpi-badges { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .55rem }
+    .kpi-badges span {
+      border: 1px solid rgba(255,91,0,.22);
+      background: rgba(255,91,0,.08);
+      color: var(--sub);
+      padding: .26rem .54rem;
+      border-radius: 999px; font-size: .87rem; font-weight: 600;
+    }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: var(--r); border: 1px solid var(--line) }
+    table { width: 100%; border-collapse: collapse; min-width: 460px }
+    th,td { padding: .8rem .95rem; border-bottom: 1px solid var(--line); text-align: left }
+    th { background: rgba(255,91,0,.07); color: var(--ink); font-weight: 700; font-size: .93rem }
+    tr.hi { background: rgba(255,91,0,.04) }
+    tr:hover td { background: rgba(255,255,255,.018) }
+    tr:last-child td { border-bottom: none }
+    .ok   { color: var(--ok) }
+    .warn { color: var(--warn) }
+    .err  { color: var(--err) }
+
+    /* EEAT */
+    .eeat {
+      background: var(--card);
+      border: 1px solid var(--lx);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: var(--sh);
+    }
+    .eeat > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--line); padding: .9rem 0 }
+    .faq-item:last-child { border-bottom: none }
+    .faq-button {
+      all: unset; display: flex; justify-content: space-between; align-items: flex-start;
+      width: 100%; cursor: pointer; gap: 1rem;
+    }
+    .faq-button:focus-visible { outline: 2px solid var(--cx); border-radius: 4px }
+    .faq-button h3 { margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.4 }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height .26s ease }
+    .faq-content.open { padding-top: .65rem }
+    .faq-plus { font-weight: 800; font-size: 1.35rem; color: var(--cx); flex: 0 0 auto; line-height: 1; transition: transform .2s }
+    .faq-button[aria-expanded="true"] .faq-plus { transform: rotate(45deg) }
+
+    @media(min-width:860px){
+      .steps { grid-template-columns: repeat(4,1fr) }
+      .grid-2 { grid-template-columns: 1fr 1fr }
+      .callout-grid { grid-template-columns: 1fr 1fr }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="container">
+    <div class="hero-card">
+      <div class="brand-row">
+        <img class="brand-logo" src="conv.jpg" alt="Convex Finance logo">
+        <div>
+          <div class="brand-label">Complete Protocol Guide</div>
+          <div class="brand-sub">Boosted CRV Yields · cvxCRV · CVX Token · vlCVX · Curve Wars · Bribes</div>
+        </div>
+      </div>
+
+      <h1>Convex Finance</h1>
+      <p class="lead" style="margin-top:.7rem">
+        The complete guide to <strong>Convex Finance</strong> — the protocol that lets
+        <strong>Curve liquidity providers</strong> maximise their <strong>CRV rewards</strong>
+        without locking CRV themselves, and lets <strong>CRV holders</strong> earn
+        boosted yield via <strong>cvxCRV</strong>. Understand how Convex accumulates
+        <strong>veCRV voting power</strong> on behalf of its users, how the
+        <strong>CVX token</strong> and <strong>vlCVX vote-locking</strong> work,
+        what the <strong>Curve Wars</strong> are and why Convex sits at the centre of them,
+        how <strong>bribes</strong> generate extra yield for vlCVX holders,
+        and the full <strong>risk profile</strong> of using Convex.
+      </p>
+
+      <div class="cta-center">
+        <a href="#" class="cta" aria-label="Open Convex Finance App">
+          <span class="cta-icon">⬡</span> Open Convex Finance
+        </a>
+      </div>
+
+      <div class="note">
+        <strong>The core insight:</strong> Convex exists because Curve's maximum yield requires
+        locking CRV for up to 4 years — a significant capital commitment most LPs can't make.
+        Convex pools everyone's CRV into a single massive veCRV position, giving all users
+        near-maximum boost without individual lockups. It's a collective optimisation layer on top of Curve.
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STEPS -->
+<section class="step-guide" aria-labelledby="how-works">
+  <div class="container">
+    <h2 id="how-works" style="margin-top:0;border-top:none;padding-top:0">
+      How Convex Finance Works: Deposit → Boost → Earn → Govern
+    </h2>
+    <div class="steps" role="list">
+      <article class="step" role="listitem">
+        <div class="icon">01</div>
+        <h3>Curve LPs deposit LP tokens</h3>
+        <p>Liquidity providers deposit their Curve LP tokens into Convex. Convex stakes them in Curve's gauge system on your behalf, applying the maximum CRV boost from Convex's pooled veCRV position.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">02</div>
+        <h3>Convex applies maximum CRV boost</h3>
+        <p>Because Convex holds a massive veCRV position, depositors get close to the maximum 2.5× CRV gauge boost — even if they hold no veCRV themselves. Individual small LPs benefit from institutional-scale boost.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">03</div>
+        <h3>Earn CRV + CVX rewards</h3>
+        <p>Depositors earn boosted CRV emissions from Curve gauges plus additional CVX token rewards from Convex's own emission schedule — two reward streams on top of base Curve trading fees.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">04</div>
+        <h3>vlCVX governs gauge votes &amp; bribes</h3>
+        <p>Locking CVX as vlCVX gives voting power over Convex's veCRV — directing which Curve pools receive the largest CRV emissions. vlCVX holders earn bribes from protocols competing to attract votes to their pools.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container" role="main">
+
+  <!-- TOC -->
+  <section class="card toc" aria-label="Table of Contents">
+    <strong>On this page — Convex Finance:</strong>
+    <ul>
+      <li><a href="#overview">What is Convex Finance and why it was built on top of Curve</a></li>
+      <li><a href="#boost">How Convex boosts CRV rewards: veCRV pooling explained</a></li>
+      <li><a href="#cvxcrv">cvxCRV: liquid CRV staking on Convex — mechanics and yield</a></li>
+      <li><a href="#cvx">CVX token: utility, emissions, and how value accrues</a></li>
+      <li><a href="#vlcvx">vlCVX: vote locking, gauge voting, and bribe rewards</a></li>
+      <li><a href="#curve-wars">The Curve Wars: why protocols fight for veCRV and Convex's role</a></li>
+      <li><a href="#bribes">Bribes on Votium and Hidden Hand: how vlCVX generates extra yield</a></li>
+      <li><a href="#how-to">How to use Convex Finance: LP deposit step-by-step</a></li>
+      <li><a href="#safety">Convex Finance risks: smart-contract, depeg, and liquidity risks</a></li>
+      <li><a href="#comparison">Convex vs Yearn vs StakeDAO vs Aura: yield optimiser comparison</a></li>
+      <li><a href="#best-practices">Best practices for Convex depositors and vlCVX holders</a></li>
+      <li><a href="#troubleshooting">Troubleshooting: reward claims, cvxCRV peg, vlCVX expiry</a></li>
+      <li><a href="#eeat">Authoritative sources &amp; references</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="card" id="overview">
+    <h2>What Is Convex Finance and Why Was It Built on Top of Curve?</h2>
+    <p>
+      <strong>Convex Finance</strong> is a yield optimisation protocol built specifically
+      on top of <strong>Curve Finance</strong>. To understand Convex, you must first understand
+      Curve's veCRV boost system: Curve's gauge emissions can be multiplied up to 2.5×
+      by locking CRV as veCRV — but the lock is up to 4 years and non-transferable.
+      Most LPs lack the capital commitment or time horizon to individually lock enough CRV for maximum boost.
+    </p>
+    <p>
+      Convex solves this by aggregating: it accepts CRV deposits from anyone, converts them
+      to a massive shared veCRV position, and applies that collective boost to all Curve LPs
+      who deposit through Convex. The result is that a small LP depositing through Convex
+      earns near-maximum CRV yield without locking a single CRV token themselves.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>For Curve LPs</h3>
+        <p style="color:var(--muted)">Deposit Curve LP tokens into Convex and automatically receive near-maximum CRV gauge boost plus additional CVX rewards — no veCRV position required, no 4-year lockup, no governance complexity.</p>
+        <div class="kpi-badges"><span>Max boost</span><span>No lockup</span><span>CRV + CVX rewards</span></div>
+      </div>
+      <div class="mini">
+        <h3>For CRV holders</h3>
+        <p style="color:var(--muted)">Stake CRV via Convex as cvxCRV — earn trading fees from Curve, CRV gauge rewards, and CVX tokens in a liquid position rather than a 4-year locked veCRV. Tradeable on secondary markets unlike native veCRV.</p>
+        <div class="kpi-badges"><span>Liquid staking</span><span>Multiple reward streams</span><span>No 4yr lock</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOST -->
+  <section class="card" id="boost">
+    <h2>How Convex Boosts CRV Rewards: veCRV Pooling Explained</h2>
+    <p>
+      Curve's gauge boost formula rewards LPs who hold veCRV proportional to their LP position.
+      The maximum 2.5× boost requires holding a large amount of veCRV relative to your LP size.
+      For small-to-medium LPs, this is economically impractical — the capital needed in veCRV
+      to max-boost a given LP position often exceeds the LP position itself.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="Boost comparison">
+        <thead>
+          <tr><th>Scenario</th><th>CRV boost received</th><th>Requirement</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>No veCRV held</td>
+            <td>1× (base rate)</td>
+            <td>Just being an LP — minimum possible yield</td>
+          </tr>
+          <tr>
+            <td>Small personal veCRV position</td>
+            <td>1.1× – 1.8× (partial boost)</td>
+            <td>Lock CRV for 1–4 years, size limits boost ceiling</td>
+          </tr>
+          <tr class="hi">
+            <td>Maximum personal veCRV (impractical)</td>
+            <td>2.5× (full boost)</td>
+            <td>Lock enormous CRV for 4 years — capital inefficient for most</td>
+          </tr>
+          <tr>
+            <td><strong>Via Convex</strong></td>
+            <td><strong>~2.0× – 2.5× (near-max)</strong></td>
+            <td><strong>No CRV lockup — just deposit LP tokens into Convex</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Why the boost isn't always exactly 2.5×:</strong> Convex's boost across all its
+      depositors is an average. Pools with more Convex depositors relative to the available
+      veCRV weight receive slightly less than max boost. But for virtually all depositors,
+      Convex delivers meaningfully more than an unboosted LP position.
+    </div>
+  </section>
+
+  <!-- cvxCRV -->
+  <section class="card" id="cvxcrv">
+    <h2>cvxCRV: Liquid CRV Staking on Convex — Mechanics, Yield Sources, and the Peg</h2>
+    <p>
+      <strong>cvxCRV</strong> is a liquid wrapper for veCRV created by Convex.
+      When you deposit CRV into Convex, you receive cvxCRV — a freely tradeable token
+      representing your share of Convex's veCRV position, without the 4-year lockup.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>cvxCRV yield sources</h3>
+        <p style="color:var(--muted)">Staking cvxCRV earns three streams simultaneously: Curve protocol fees (3CRV), a share of CRV gauge rewards from Convex's veCRV position, and CVX token emissions from Convex's own schedule.</p>
+        <div class="kpi-badges"><span>Curve fees (3CRV)</span><span>CRV rewards</span><span>CVX emissions</span></div>
+      </div>
+      <div class="mini">
+        <h3>The cvxCRV peg</h3>
+        <p style="color:var(--muted)">cvxCRV should trade at or near 1 CRV, but it frequently trades at a discount because the conversion from CRV → cvxCRV is one-way (you cannot convert back). Discounts arise when selling pressure exceeds new CRV deposits. Check the Curve cvxCRV/CRV pool before converting.</p>
+        <div class="kpi-badges"><span>One-way conversion</span><span>Often at discount</span><span>Check pool first</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Critical: CRV → cvxCRV is irreversible on Convex.</strong> You cannot convert
+      cvxCRV back to CRV through Convex directly. To exit, you sell cvxCRV on the
+      Curve cvxCRV/CRV pool — which means you may receive slightly less than 1 CRV per cvxCRV
+      depending on current pool depth and discount. Factor this into your decision before converting.
+    </div>
+  </section>
+
+  <!-- CVX TOKEN -->
+  <section class="card" id="cvx">
+    <h2>CVX Token: Utility, Emissions, and How Value Accrues to Holders</h2>
+    <p>
+      <strong>CVX</strong> is Convex's native token. It is emitted to Curve LP depositors
+      as an additional reward on top of their boosted CRV, and it plays a central role
+      in Convex's governance and vote-locking system.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="CVX token utility">
+        <thead>
+          <tr><th>Function</th><th>How CVX is used</th><th>Value driver</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Emission reward</td>
+            <td>Distributed to Curve LP depositors on Convex proportional to their boosted CRV earnings</td>
+            <td>Creates demand from LPs seeking additional yield</td>
+          </tr>
+          <tr>
+            <td>vlCVX governance</td>
+            <td>Lock CVX as vlCVX for 16 weeks to vote on Convex's veCRV gauge weight allocations</td>
+            <td>Controls billions in CRV emissions — significant governance power</td>
+          </tr>
+          <tr class="hi">
+            <td>Bribe recipient</td>
+            <td>vlCVX holders receive bribes from protocols seeking votes for their Curve gauges</td>
+            <td>Direct income stream from the Curve Wars ecosystem</td>
+          </tr>
+          <tr>
+            <td>Protocol fee sharing</td>
+            <td>A portion of Convex's platform fees from cvxCRV stakers flows to vlCVX lockers</td>
+            <td>Share of Convex protocol revenue proportional to locked CVX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- vlCVX -->
+  <section class="card" id="vlcvx">
+    <h2>vlCVX: Vote Locking, Gauge Voting, and Bribe Rewards Explained</h2>
+    <p>
+      <strong>vlCVX</strong> (vote-locked CVX) is obtained by locking CVX for a
+      <strong>16-week rolling period</strong>. It is the governance instrument that controls
+      how Convex — which holds one of the largest veCRV positions in existence —
+      votes on Curve's gauge weight allocations each epoch.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>What vlCVX controls</h3>
+        <p style="color:var(--muted)">vlCVX holders vote every two weeks on which Curve pools receive the largest share of CRV gauge emissions. Because Convex controls a substantial portion of total veCRV, its votes significantly affect how billions of dollars in CRV rewards are distributed across the Curve ecosystem.</p>
+        <div class="kpi-badges"><span>Gauge weights</span><span>CRV emission direction</span><span>Every 2 weeks</span></div>
+      </div>
+      <div class="mini">
+        <h3>The 16-week lock</h3>
+        <p style="color:var(--muted)">CVX locked as vlCVX is illiquid for a rolling 16-week period. At the end of each 16-week cycle you can either relock or withdraw. Unlike veCRV which decays, vlCVX does not decay in weight — you retain full governance power until you unlock.</p>
+        <div class="kpi-badges"><span>16-week rolling lock</span><span>No weight decay</span><span>Relock or exit</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>vlCVX yield stack:</strong> By holding vlCVX you earn simultaneously —
+      (1) bribes from protocols paying for your Curve gauge votes,
+      (2) a share of Convex's platform fees from cvxCRV stakers,
+      and (3) any CVX staking rewards. This multi-source yield is why vlCVX is
+      often more capital efficient than simply staking CVX passively.
+    </div>
+  </section>
+
+  <!-- CURVE WARS -->
+  <section class="card" id="curve-wars">
+    <h2>The Curve Wars: Why Protocols Fight for veCRV and Convex's Central Role</h2>
+    <p>
+      The <strong>Curve Wars</strong> is the ongoing competition between DeFi protocols
+      to accumulate veCRV voting power — because controlling gauge votes means directing
+      CRV emissions to your liquidity pools, reducing your protocol's cost of liquidity.
+    </p>
+    <p>
+      For a stablecoin protocol, DEX, or yield product, having deep Curve liquidity is
+      a competitive necessity. CRV gauge emissions attract LPs by boosting their yield.
+      The more gauge weight directed to your pool, the cheaper it is to bootstrap and maintain liquidity.
+      This is why protocols spend millions acquiring veCRV — or bribing vlCVX holders to vote for them.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="Curve Wars participants">
+        <thead>
+          <tr><th>Actor</th><th>Goal</th><th>Strategy</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Stablecoin protocols (Frax, MIM, etc.)</td>
+            <td>Cheap, deep liquidity for their stablecoin on Curve</td>
+            <td>Accumulate veCRV directly, or bribe Convex vlCVX voters</td>
+          </tr>
+          <tr>
+            <td>Convex Finance</td>
+            <td>Maximise veCRV holdings to attract more Curve LP deposits</td>
+            <td>Convert every CRV deposited into veCRV — never selling</td>
+          </tr>
+          <tr class="hi">
+            <td>vlCVX holders</td>
+            <td>Maximise yield from holding governance power</td>
+            <td>Vote for highest-bribe pools each epoch via Votium or Hidden Hand</td>
+          </tr>
+          <tr>
+            <td>Curve LPs</td>
+            <td>Maximise CRV emissions from their pools</td>
+            <td>Deposit via Convex for boosted yield; benefit from protocol bribe wars</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BRIBES -->
+  <section class="card" id="bribes">
+    <h2>Bribes on Votium and Hidden Hand: How vlCVX Generates Extra Yield</h2>
+    <p>
+      <strong>Bribes</strong> are payments made by protocols to vlCVX holders in exchange
+      for directing Convex's veCRV votes toward their specific Curve gauge.
+      They are called "bribes" colloquially — they are fully transparent, on-chain
+      incentive payments, not covert payments.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>How Votium works</h3>
+        <p style="color:var(--muted)">Votium is the primary bribe marketplace for Convex. Protocols deposit tokens as bribes for a given epoch. vlCVX holders who vote for a protocol's gauge via Votium claim their proportional share of the bribe after the voting period closes.</p>
+        <div class="kpi-badges"><span>On-chain bribes</span><span>Per-epoch claims</span><span>Proportional payout</span></div>
+      </div>
+      <div class="mini">
+        <h3>How Hidden Hand works</h3>
+        <p style="color:var(--muted)">Hidden Hand by Redacted Cartel is an alternative bribe marketplace supporting multiple vote-escrow systems including Convex/vlCVX and Aura/vlAURA. It aggregates bribe opportunities across platforms in a unified interface.</p>
+        <div class="kpi-badges"><span>Multi-protocol</span><span>Unified interface</span><span>Redacted Cartel</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Bribe ROI calculation:</strong> Bribe yield per vlCVX varies each epoch based on
+      total bribe volume and number of vlCVX locked. During active Curve Wars periods,
+      bribe APRs have historically exceeded 20–40% annualised. In quieter periods they fall
+      significantly. Track current bribe rates on Votium or Hidden Hand dashboards before
+      making locking decisions based on bribe yield expectations.
+    </div>
+  </section>
+
+  <!-- HOW TO -->
+  <section class="card" id="how-to">
+    <h2>How to Use Convex Finance: Depositing Curve LP Tokens Step-by-Step</h2>
+    <ol style="padding-left:1.3rem">
+      <li style="margin-bottom:.6rem"><strong>Obtain Curve LP tokens first</strong> — provide liquidity on Curve Finance for any supported pool (e.g. 3pool, FRAX/USDC, stETH/ETH) to receive LP tokens.</li>
+      <li style="margin-bottom:.6rem"><strong>Go to the official Convex Finance app</strong> — bookmark the official URL and verify the domain before connecting your wallet.</li>
+      <li style="margin-bottom:.6rem"><strong>Find your pool</strong> — search for the Curve pool matching your LP tokens. Convex lists all supported gauges with their current APRs broken down by CRV, CVX, and trading fee components.</li>
+      <li style="margin-bottom:.6rem"><strong>Approve and deposit LP tokens</strong> — approve the Convex contract to interact with your LP tokens, then confirm the deposit transaction.</li>
+      <li style="margin-bottom:.6rem"><strong>Monitor accruing rewards</strong> — CRV and CVX rewards accrue continuously. Check the Convex dashboard for pending reward balances.</li>
+      <li style="margin-bottom:.6rem"><strong>Claim rewards</strong> — claim CRV and CVX via the dashboard. You can claim directly or optionally convert CRV to cvxCRV at claim time for additional cvxCRV staking yield.</li>
+      <li><strong>Withdraw LP tokens</strong> — at any time, withdraw your LP tokens back to your wallet. There is no lockup for LP depositors on Convex.</li>
+    </ol>
+
+    <div class="note">
+      <strong>No lockup for LP depositors:</strong> Unlike staking CRV as cvxCRV or locking CVX as vlCVX,
+      depositing Curve LP tokens on Convex has no lockup period.
+      You can withdraw your LP tokens at any time — only the gas cost of the withdrawal transaction applies.
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="card" id="safety">
+    <h2>Convex Finance Risks: Smart-Contract, Depeg, and Liquidity Risks</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Risk analysis">
+        <thead>
+          <tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Smart-contract exploit (Convex)</td>
+            <td class="warn">Medium</td>
+            <td>Multiple audits; large TVL battle-tested over years; bug bounty</td>
+          </tr>
+          <tr>
+            <td>Smart-contract exploit (Curve)</td>
+            <td class="warn">Medium</td>
+            <td>Convex inherits all Curve contract risk — an exploit in Curve affects Convex depositors</td>
+          </tr>
+          <tr class="hi">
+            <td>cvxCRV depeg</td>
+            <td class="warn">Medium</td>
+            <td>One-way conversion creates structural discount risk — check the Curve pool before converting</td>
+          </tr>
+          <tr>
+            <td>Curve pool depeg (stablecoins)</td>
+            <td class="warn">Medium</td>
+            <td>LP positions in Curve pools are exposed to peg risk of underlying assets — choose pools carefully</td>
+          </tr>
+          <tr class="hi">
+            <td>vlCVX lock illiquidity</td>
+            <td class="warn">Medium</td>
+            <td>16-week lock cannot be unwound — do not lock CVX you may need before expiry</td>
+          </tr>
+          <tr>
+            <td>CVX price risk</td>
+            <td class="warn">Medium</td>
+            <td>CVX rewards are USD-volatile — falling CVX price reduces effective yield from LP deposits</td>
+          </tr>
+          <tr class="hi">
+            <td>Phishing / fake Convex sites</td>
+            <td class="err">High (user-controlled)</td>
+            <td>Bookmark official URL; verify domain before every wallet connection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      <strong>Layered smart-contract risk:</strong> Depositing into Convex means your funds interact with
+      both Convex's contracts and Curve's contracts. A critical vulnerability in either protocol
+      could affect your position. This compounding smart-contract risk is the most important
+      systematic risk factor for Convex depositors — it does not disappear with large TVL or audit history.
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="card" id="comparison">
+    <h2>Convex vs Yearn vs StakeDAO vs Aura: Yield Optimiser Comparison</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Yield optimiser comparison">
+        <thead>
+          <tr><th>Feature</th><th>Convex Finance</th><th>Yearn Finance</th><th>StakeDAO</th><span></span><th>Aura Finance</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Primary base protocol</td>
+            <td>Curve</td>
+            <td>Multiple (Curve, Aave, etc.)</td>
+            <td>Curve + other</td>
+            <td>Balancer</td>
+          </tr>
+          <tr>
+            <td>Boost mechanism</td>
+            <td class="ok">veCRV pooling — near-max boost</td>
+            <td class="ok">Uses Convex internally</td>
+            <td class="warn">Own veCRV + sdCRV</td>
+            <td class="ok">veBAL pooling for Balancer</td>
+          </tr>
+          <tr class="hi">
+            <td>Governance token</td>
+            <td>CVX / vlCVX</td>
+            <td>YFI (limited supply)</td>
+            <td>SDT</td>
+            <td>AURA / vlAURA</td>
+          </tr>
+          <tr>
+            <td>Bribe ecosystem</td>
+            <td class="ok">Votium + Hidden Hand — largest</td>
+            <td class="warn">Limited</td>
+            <td class="warn">Growing</td>
+            <td class="ok">Hidden Hand — active</td>
+          </tr>
+          <tr class="hi">
+            <td>Auto-compounding</td>
+            <td class="warn">Manual claim</td>
+            <td class="ok">Fully automatic</td>
+            <td class="warn">Manual + auto options</td>
+            <td class="warn">Manual claim</td>
+          </tr>
+          <tr>
+            <td>LP lockup</td>
+            <td class="ok">None for LP tokens</td>
+            <td class="ok">None</td>
+            <td class="ok">None</td>
+            <td class="ok">None for LP tokens</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      <strong>Convex vs Yearn on Curve:</strong> Yearn's Curve vaults actually use Convex internally
+      for the boosted yield — Yearn adds auto-compounding and strategy management on top.
+      If you want manual control over reward claiming and conversion, use Convex directly.
+      If you prefer set-and-forget auto-compounding and are willing to pay Yearn's performance fee, Yearn works well.
+    </div>
+  </section>
+
+  <!-- BEST PRACTICES -->
+  <section class="card" id="best-practices">
+    <h2>Best Practices for Convex Depositors and vlCVX Holders</h2>
+    <ul style="padding-left:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Check the cvxCRV/CRV pool discount before converting CRV</strong> — if cvxCRV trades at a significant discount, it may be better to buy cvxCRV on the secondary market rather than convert at 1:1.</li>
+      <li style="margin-bottom:.5rem"><strong>Understand the full yield breakdown</strong> — Convex APRs consist of CRV (variable), CVX (variable), and trading fees (variable). All three components fluctuate — a headline APR from yesterday may differ significantly from today's.</li>
+      <li style="margin-bottom:.5rem"><strong>For vlCVX:</strong> time your lock around the 16-week cycle and vote every epoch via Votium to capture maximum bribe yield. Unclaimed bribe epochs are forfeited if you miss the claim window.</li>
+      <li style="margin-bottom:.5rem"><strong>Never lock vlCVX with capital needed in under 16 weeks</strong> — the lock is strict and there is no emergency exit mechanism.</li>
+      <li style="margin-bottom:.5rem"><strong>Revoke stale token approvals</strong> after withdrawing from Convex — the multi-contract architecture means multiple approvals accumulate. Use Revoke.cash periodically.</li>
+      <li style="margin-bottom:.5rem"><strong>Bookmark the official Convex URL</strong> and verify the domain every session — DeFi phishing sites frequently target high-TVL protocols like Convex.</li>
+      <li><strong>Consider Curve pool underlying asset risk</strong> — the yield from Convex is only as good as the safety of the underlying Curve pool. A depeg in a stablecoin pool's assets affects your LP value regardless of the CRV boost.</li>
+    </ul>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="card" id="troubleshooting">
+    <h2>Troubleshooting Convex Finance: Rewards, cvxCRV Peg, and vlCVX Expiry</h2>
+
+    <h3>"My CRV/CVX rewards are lower than the displayed APR"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>Displayed APR is a snapshot calculated at current token prices and emission rates — both fluctuate constantly. Realised yield over time reflects average prices and rates during your deposit period.</li>
+      <li>Ensure your LP tokens are actually deposited and staked in Convex — deposits that weren't confirmed due to gas failures will not generate rewards.</li>
+    </ul>
+
+    <h3>"cvxCRV is trading well below 1 CRV — should I be worried?"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>A discount on cvxCRV is structurally expected due to the one-way conversion — it is a known feature, not a bug or exploit signal. Historical discounts have ranged from ~1% to ~20% depending on market conditions.</li>
+      <li>If the discount is very large (&gt;15%), it may signal broader market stress or reduced demand for CRV yield — monitor Curve governance and market conditions before acting.</li>
+      <li>A large discount also creates a buying opportunity for cvxCRV if you intend to stake it long-term — buying at discount improves your effective entry yield.</li>
+    </ul>
+
+    <h3>"My vlCVX lock has expired but I can't see my CVX"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>Expired vlCVX does not automatically return to your wallet — you must manually withdraw via the Convex governance page after the lock period ends.</li>
+      <li>If you don't withdraw before the next relock window, your expired vlCVX may be automatically relocked — check the current auto-relock settings in your account.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Always verify on the official Convex app:</strong> Third-party dashboards and aggregators
+      may show stale or incorrect APR data. For current reward accrual, pending claims,
+      and lock status — the official Convex Finance app is the authoritative interface.
+    </div>
+  </section>
+
+  <!-- EEAT -->
+  <section class="eeat" id="eeat" aria-labelledby="eeat-title">
+    <h2 id="eeat-title">Convex Finance: Authoritative References &amp; External Sources</h2>
+
+    <h3>Convex Finance — Official Sources</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://www.convexfinance.com/" target="_blank" rel="noopener nofollow">Convex Finance — Official App</a></li>
+      <li><a href="https://docs.convexfinance.com/" target="_blank" rel="noopener nofollow">Convex Finance — Official Documentation</a></li>
+      <li><a href="https://github.com/convex-eth" target="_blank" rel="noopener nofollow">Convex Finance — Smart Contracts (GitHub)</a></li>
+    </ul>
+
+    <h3>Curve &amp; Ecosystem</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://curve.fi/" target="_blank" rel="noopener nofollow">Curve Finance — Official App</a></li>
+      <li><a href="https://votium.app/" target="_blank" rel="noopener nofollow">Votium — vlCVX Bribe Marketplace</a></li>
+      <li><a href="https://hiddenhand.finance/" target="_blank" rel="noopener nofollow">Hidden Hand — Multi-Protocol Bribe Aggregator</a></li>
+    </ul>
+
+    <h3>Analytics &amp; Data</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://defillama.com/protocol/convex-finance" target="_blank" rel="noopener nofollow">DeFiLlama — Convex Finance TVL &amp; Data</a></li>
+      <li><a href="https://dune.com/browse/dashboards" target="_blank" rel="noopener nofollow">Dune Analytics — Convex On-chain Dashboards</a></li>
+      <li><a href="https://llama.airforce/" target="_blank" rel="noopener nofollow">Llama Airforce — Convex &amp; Curve Analytics</a></li>
+    </ul>
+
+    <h3>Security</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://revoke.cash/" target="_blank" rel="noopener nofollow">Revoke.cash — Token Approval Manager</a></li>
+      <li><a href="https://blog.openzeppelin.com/security-audits" target="_blank" rel="noopener nofollow">OpenZeppelin — Smart Contract Security Audits</a></li>
+    </ul>
+
+    <div class="note" style="margin-top:1.2rem">
+      <strong>About:</strong> Prepared by Crypto Finance Experts as a practical, SEO-oriented knowledge base for
+      <em>Convex Finance</em>: CRV boost mechanics, cvxCRV, CVX token, vlCVX, Curve Wars, bribes, Votium, risks, and strategies.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" style="margin-top:0;border-top:none;padding-top:0">Convex Finance: Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f1" id="b1">
+        <h3>What is Convex Finance and what does it do?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f1" class="faq-content" role="region" aria-labelledby="b1">
+        <p>Convex Finance is a yield optimisation protocol built on top of Curve Finance. It allows Curve LPs to earn near-maximum CRV gauge boost without personally locking CRV, by pooling everyone's CRV into a single large veCRV position. LPs deposit Curve LP tokens into Convex and receive boosted CRV rewards plus CVX token emissions. CRV holders can also stake via cvxCRV for a liquid alternative to the 4-year veCRV lock.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f2" id="b2">
+        <h3>What is the difference between cvxCRV and veCRV?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f2" class="faq-content" role="region" aria-labelledby="b2">
+        <p>veCRV is obtained by locking CRV on Curve for up to 4 years — it is non-transferable, decays over time, and provides direct governance over Curve gauge weights. cvxCRV is a liquid ERC-20 token representing your share of Convex's pooled veCRV position. It's freely tradeable on Curve, earns similar yield to veCRV (trading fees, CRV rewards, CVX), but can be sold on the secondary market rather than being time-locked. The trade-off is the cvxCRV discount and the one-way conversion.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f3" id="b3">
+        <h3>Can I convert cvxCRV back to CRV?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f3" class="faq-content" role="region" aria-labelledby="b3">
+        <p>Not directly through Convex — the CRV → cvxCRV conversion is one-way. To exit your cvxCRV position, you sell cvxCRV for CRV (or other tokens) on the Curve cvxCRV/CRV liquidity pool. This means you typically receive slightly less than 1 CRV per cvxCRV due to the persistent discount. Always check the current pool rate before converting CRV to cvxCRV so you understand your exit options.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f4" id="b4">
+        <h3>What is vlCVX and why would I lock CVX?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f4" class="faq-content" role="region" aria-labelledby="b4">
+        <p>vlCVX (vote-locked CVX) is obtained by locking CVX for 16-week rolling periods. It gives you governance power over how Convex's massive veCRV votes are allocated across Curve's gauges each epoch. The primary financial incentive is bribes — protocols pay vlCVX holders in tokens to vote for their pools, generating additional yield. vlCVX also earns a share of Convex platform fees. The 16-week lock is strict — do not lock CVX you may need sooner.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f5" id="b5">
+        <h3>What are bribes and how do I earn them?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f5" class="faq-content" role="region" aria-labelledby="b5">
+        <p>Bribes are on-chain incentive payments from DeFi protocols to vlCVX holders in exchange for directing Convex's veCRV votes toward their specific Curve gauges. To earn bribes: lock CVX as vlCVX, then each voting epoch (every 2 weeks) visit Votium or Hidden Hand to see available bribes and submit your votes. After the epoch closes, claim your proportional share of the bribes deposited by protocols whose gauges you voted for.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f6" id="b6">
+        <h3>Is there a lockup period for Curve LPs depositing on Convex?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f6" class="faq-content" role="region" aria-labelledby="b6">
+        <p>No — Curve LP token deposits on Convex have no lockup period. You can withdraw your LP tokens at any time by paying only the gas cost of the withdrawal transaction. This is a key advantage over other yield strategies that lock capital. Only cvxCRV (one-way conversion) and vlCVX (16-week lock) involve capital commitment — pure LP depositors retain full flexibility.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f7" id="b7">
+        <h3>What is the Curve Wars and why does it matter?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f7" class="faq-content" role="region" aria-labelledby="b7">
+        <p>The Curve Wars refers to the competition between DeFi protocols to accumulate veCRV voting power — because controlling Curve gauge votes means directing CRV emissions to your protocol's liquidity pools, reducing your cost of liquidity. Protocols with more CRV gauge weight attract more LPs (due to higher yield), which gives them deeper, more efficient liquidity. Convex sits at the centre of this competition as the largest veCRV holder — making its vlCVX governance extremely valuable to all Curve-adjacent protocols.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f8" id="b8">
+        <h3>How does Convex compare to using Yearn for Curve yield?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f8" class="faq-content" role="region" aria-labelledby="b8">
+        <p>Yearn's Curve vaults actually use Convex under the hood for the CRV boost — they layer auto-compounding and strategy management on top. If you want manual control over reward claiming (to decide whether to sell CRV, stake as cvxCRV, or compound manually), use Convex directly. If you prefer automatic reinvestment without manual claiming and are comfortable paying Yearn's performance fee, Yearn is convenient. The base yield is similar since Yearn routes through Convex.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f9" id="b9">
+        <h3>What are the main risks of using Convex Finance?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f9" class="faq-content" role="region" aria-labelledby="b9">
+        <p>The primary risks are: (1) layered smart-contract risk — Convex inherits both its own contract risk and Curve's; (2) cvxCRV depeg — the one-way conversion creates structural discount risk on exit; (3) Curve pool underlying asset risk — LP positions in stablecoin pools are exposed to peg events in those stablecoins; (4) vlCVX illiquidity — 16-week locks cannot be unwound early; (5) CVX price volatility — a core component of Convex yield denominated in CVX. Using a hardware wallet and bookmarking the official URL addresses the user-controlled risk layer.</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="container" role="contentinfo" style="padding:2.5rem 0; border-top:1px solid var(--line); margin-top:2rem">
+  <p style="color:var(--dim); font-size:.93rem">© 2026 Convex Finance Guide. Educational content with a security-first operational focus. Not financial advice.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-button').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const c = document.getElementById(b.getAttribute('aria-controls'));
+        c.classList.remove('open'); c.style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        const content = document.getElementById(btn.getAttribute('aria-controls'));
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
